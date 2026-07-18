@@ -1,0 +1,7 @@
+.env*
+.git
+.next
+node_modules
+docker-images
+npm-debug.log*
+README.md
