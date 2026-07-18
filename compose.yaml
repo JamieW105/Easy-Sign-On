@@ -1,0 +1,21 @@
+# Easy Sign On release Compose file.
+# First load the release image beside this file:
+#   docker load --input easy-sign-on-latest.tar
+services:
+  easy-sign-on:
+    image: easy-sign-on:latest
+    container_name: easy-sign-on
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 9222
+      EASY_SIGN_ON_SEASON_SAILWAVE_CONTAINER_FILE: /seasonal/seasonal.blw
+      EASY_SIGN_ON_DATA_DIR: ${EASY_SIGN_ON_DATA_DIR}
+      EASY_SIGN_ON_TIMEZONE: ${EASY_SIGN_ON_TIMEZONE:-Pacific/Auckland}
+      EASY_SIGN_ON_OPEN_TIME: ${EASY_SIGN_ON_OPEN_TIME:-11:00}
+      EASY_SIGN_ON_CLOSE_TIME: ${EASY_SIGN_ON_CLOSE_TIME:-12:30}
+    volumes:
+      - ${EASY_SIGN_ON_SEASON_SAILWAVE_FILE}:/seasonal/seasonal.blw:ro
+      - ${EASY_SIGN_ON_DATA_DIR}:/opt/easy-sign-on/data
+    ports:
+      - "${EASY_SIGN_ON_PORT:-9222}:9222"
